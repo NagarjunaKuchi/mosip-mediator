@@ -30,7 +30,7 @@ export async function verifyOpencrvsAuthToken(token: string): Promise<boolean> {
 
 export async function getOpencrvsAuthToken(): Promise<string> {
   const createToken = await fetch(
-    resolve(AUTH_URL, 'authenticateSystemClient'),
+    resolve(AUTH_URL, 'token'),
     {
       method: 'POST',
       body: JSON.stringify({
@@ -51,8 +51,8 @@ export async function getOpencrvsAuthToken(): Promise<string> {
   logger.info(
     `This is the authToken request response: ${JSON.stringify(createToken)}`
   )
-  if ('token' in createToken) {
-    return createToken.token
+  if ('access_token' in createToken) {
+    return createToken.access_token
   } else {
     return ''
   }
